@@ -22,4 +22,7 @@ obtenerCantidadDeVida :: Personaje -> Int
 obtenerCantidadDeVida = cantidadDeVida
 
 bolaEspinosa :: Personaje -> Int
-bolaEspinosa unPersonaje = cantidadDeVida unPersonaje - 1000
+bolaEspinosa unPersonaje = max 0 (cantidadDeVida unPersonaje - 1000)
+
+-- lluviaDeTuercas :: Personaje -> Int
+-- lluviaDeTuercas unPersonaje = cantidadDeVida unPersonaje + (800 * fromEnum esAliado) - (800 * fromEnum esContrincante)
