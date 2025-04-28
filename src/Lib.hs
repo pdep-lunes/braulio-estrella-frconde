@@ -7,16 +7,16 @@ doble x = x * 2
 
 data Personaje = UnPersonaje {
 nombre :: String, 
-poderBasico :: String, 
-superPoder :: String, 
+poderBasico :: (Personaje -> Personaje), 
+superPoder :: (Personaje -> Personaje), 
 superPoderActivo :: Bool, 
 cantidadDeVida :: Int
 } deriving Show
 
 espina :: Personaje
-espina = UnPersonaje "Espina" "Bola de Espinas" "Granada de Espinas" True 4800
+espina = UnPersonaje "Espina" bolaEspinosa granadaDeEspinas True 4800
 pamela :: Personaje
-pamela = UnPersonaje "Pamela" "Lluvia de Tuercas sanadoras" "Torreta curativa" False 9600
+pamela = UnPersonaje "Pamela" lluviaDeTuercas torretaCurativa False 9600
 
 obtenerCantidadDeVida :: Personaje -> Int
 obtenerCantidadDeVida = cantidadDeVida
@@ -39,3 +39,8 @@ granadaDeEspinas radio unPersonaje
 
 torretaCurativa :: Personaje -> Personaje
 torretaCurativa unPersonaje = unPersonaje {superPoderActivo = True, cantidadDeVida = cantidadDeVida unPersonaje * 2 }
+
+
+atacarPoderEspecial :: Personaje -> Personaje -> Personaje
+atacarPoderEspecial personajeAtacante personajeAtacado 
+    | superPoderActivo personajeAtacante = (poderBasico personajeAtacante).(superPoder personajeAtacante) personajeAtacado
