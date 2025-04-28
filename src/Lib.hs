@@ -26,9 +26,11 @@ obtenerNombre = nombre
 bolaEspinosa :: Personaje -> Personaje
 bolaEspinosa unPersonaje = unPersonaje {cantidadDeVida = max (obtenerCantidadDeVida unPersonaje - 1000) 0 } 
 
--- lluviaDeTuercas :: Personaje -> Int
--- lluviaDeTuercas unPersonaje = cantidadDeVida unPersonaje + (800 * fromEnum esAliado) - (800 * fromEnum esContrincante)
-
+lluviaDeTuercas :: String -> Personaje -> Personaje
+lluviaDeTuercas tipoDePoder unPersonaje
+    | tipoDePoder == "Sanadoras" = unPersonaje {cantidadDeVida = obtenerCantidadDeVida unPersonaje + 800}
+    | tipoDePoder == "Daninas" = unPersonaje {cantidadDeVida = div (obtenerCantidadDeVida unPersonaje) 2}
+    | otherwise = unPersonaje
 granadaDeEspinas :: Int -> Personaje -> Personaje
 granadaDeEspinas radio unPersonaje
     | radio > 3 && obtenerCantidadDeVida unPersonaje < 800 = unPersonaje {superPoderActivo = False, cantidadDeVida = 0}
