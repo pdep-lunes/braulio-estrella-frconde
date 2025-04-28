@@ -20,9 +20,17 @@ pamela = UnPersonaje "Pamela" "Lluvia de Tuercas sanadoras" "Torreta curativa" F
 
 obtenerCantidadDeVida :: Personaje -> Int
 obtenerCantidadDeVida = cantidadDeVida
+obtenerNombre :: Personaje -> String
+obtenerNombre = nombre
 
-bolaEspinosa :: Personaje -> Int
-bolaEspinosa unPersonaje = max 0 (cantidadDeVida unPersonaje - 1000)
+bolaEspinosa :: Personaje -> Personaje
+bolaEspinosa unPersonaje = unPersonaje {cantidadDeVida = max (obtenerCantidadDeVida unPersonaje - 1000) 0 } 
 
 -- lluviaDeTuercas :: Personaje -> Int
 -- lluviaDeTuercas unPersonaje = cantidadDeVida unPersonaje + (800 * fromEnum esAliado) - (800 * fromEnum esContrincante)
+
+granadaDeEspinas :: Int -> Personaje -> Personaje
+granadaDeEspinas radio unPersonaje
+    | radio > 3 && obtenerCantidadDeVida unPersonaje < 800 = unPersonaje {superPoderActivo = False, cantidadDeVida = 0}
+    | radio > 3 = unPersonaje {nombre = obtenerNombre unPersonaje ++ "Espina estuvo aqui"}
+    | otherwise = bolaEspinosa unPersonaje
