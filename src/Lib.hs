@@ -36,3 +36,6 @@ granadaDeEspinas radio unPersonaje
     | radio > 3 && obtenerCantidadDeVida unPersonaje < 800 = unPersonaje {superPoderActivo = False, cantidadDeVida = 0}
     | radio > 3 = unPersonaje {nombre = obtenerNombre unPersonaje ++ "Espina estuvo aqui"}
     | otherwise = bolaEspinosa unPersonaje
+
+torretaCurativa :: Personaje -> Personaje
+torretaCurativa unPersonaje = unPersonaje {superPoderActivo = True, cantidadDeVida = cantidadDeVida unPersonaje * 2 }
