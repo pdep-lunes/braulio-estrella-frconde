@@ -13,11 +13,6 @@ superPoderActivo :: Bool,
 cantidadDeVida :: Int
 } deriving Show
 
-espina :: Personaje
-espina = UnPersonaje "Espina" bolaEspinosa granadaDeEspinas True 4800
-pamela :: Personaje
-pamela = UnPersonaje "Pamela" lluviaDeTuercas torretaCurativa False 9600
-
 obtenerCantidadDeVida :: Personaje -> Int
 obtenerCantidadDeVida = cantidadDeVida
 obtenerNombre :: Personaje -> String
@@ -43,4 +38,25 @@ torretaCurativa unPersonaje = unPersonaje {superPoderActivo = True, cantidadDeVi
 
 atacarPoderEspecial :: Personaje -> Personaje -> Personaje
 atacarPoderEspecial personajeAtacante personajeAtacado 
-    | superPoderActivo personajeAtacante = (poderBasico personajeAtacante).(superPoder personajeAtacante) personajeAtacado
+    | superPoderActivo personajeAtacante = (poderBasico personajeAtacante).(superPoder personajeAtacante) $ personajeAtacado
+    | otherwise = personajeAtacado
+
+equipo1 = [pamela, espina]
+equipo2 = [pamela, espina, juancito, pedrito]
+
+menosDe800DeVida :: [Personaje] -> [Personaje]
+menosDe800DeVida equipo = filter ((< 800).cantidadDeVida) equipo
+
+enLasUltimas :: [Personaje] -> [String]
+enLasUltimas equipo = map nombre (menosDe800DeVida equipo)
+
+
+espina :: Personaje
+espina = UnPersonaje "Espina" bolaEspinosa (granadaDeEspinas 5) True 400
+pamela :: Personaje
+pamela = UnPersonaje "Pamela" (lluviaDeTuercas "Sanadoras") torretaCurativa False 9600
+juancito :: Personaje
+juancito = UnPersonaje "Juancito" bolaEspinosa torretaCurativa False 300
+pedrito :: Personaje
+pedrito = UnPersonaje "Pedrio" bolaEspinosa torretaCurativa False 4000
+
