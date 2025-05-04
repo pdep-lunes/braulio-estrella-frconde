@@ -60,3 +60,4 @@ juancito = UnPersonaje "Juancito" bolaEspinosa torretaCurativa False 300
 pedrito :: Personaje
 pedrito = UnPersonaje "Pedrio" bolaEspinosa torretaCurativa False 4000
 
+
